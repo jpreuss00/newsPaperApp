@@ -1,0 +1,192 @@
+body {}
+
+header {
+    background-color: #191919;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    z-index: 999;
+    border-width: 0px 0px 4px 0px;
+    border-color: #2ecc71;
+    border-style: solid;
+}
+
+.header--invalid {
+    border-width: 0px 0px 4px 0px;
+    border-color: red;
+    border-style: solid;
+}
+
+.header--active {
+    border-width: 0px 0px 4px 0px;
+    border-color: #3498db;
+    border-style: dashed;
+}
+
+h1 {
+    top: -15px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    color: ghostwhite;
+}
+
+main {
+    position: relative;
+    top: 45px;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.loginSection {
+    display: flex;
+    justify-content: center;
+}
+
+.login {
+    border: none;
+    text-align: center;
+    position: relative;
+    top: 100px;
+    background-color: #191919;
+    box-shadow: -1px 92px 99px -62px rgba(3, 107, 255, 0.27), 0 1px 6px 0 rgba(10, 48, 255, 0.48);
+    width: 450px;
+    height: 250px;
+    border-radius: 24px;
+}
+
+.login--invalid {
+    box-shadow: -1px 92px 99px -62px rgba(255, 3, 37, 0.27), 0 1px 6px 0 rgba(255, 96, 22, 0.48);
+}
+
+h2 {
+    color: ghostwhite;
+    position: relative;
+}
+
+.login__username {
+    text-align: center;
+    border: 2px solid #3498db;
+    border-radius: 24px;
+    width: 65%;
+    height: 10%;
+    position: relative;
+    top: -15px;
+}
+
+.login__username--invalid {
+    border: 2px solid red;
+}
+
+.login__password {
+    text-align: center;
+    border: 2px solid #3498db;
+    border-radius: 24px;
+    width: 65%;
+    height: 10%;
+    position: relative;
+    top: -15px;
+}
+
+.login__password--invalid {
+    border: 2px solid red;
+}
+
+.login__confirmButton {
+    border: 2px solid #2ecc71;
+    border-radius: 24px;
+    width: 30%;
+    height: 10%;
+}
+
+.login__confirmButton--invalid {
+    border: 2px solid #8a3412;
+}
+
+.searchSection {
+    overflow-y: auto;
+}
+
+.searchSection__search {
+    display: flex;
+    justify-content: center;
+    margin-top: 75px;
+    margin-bottom: 125px;
+}
+
+.search__bar {
+    text-align: center;
+    border: 2px solid #3498db;
+    width: 400px;
+    height: 50px;
+    background-color: #191919;
+    color: white;
+}
+
+.search__button {
+    text-align: center;
+    border-width: 2px 2px 2px 0px;
+    border-style: solid;
+    border-color: #3498db;
+    width: 50px;
+    height: 56px;
+    color: white;
+    background-color: #191919;
+}
+
+.search__button--active {
+    color: #3498db;
+}
+
+.search__limit {
+    border-width: 2px 0px 2px 2px;
+    border-style: solid;
+    border-color: #3498db;
+    width: 25px;
+    height: 50px;
+    text-align: center;
+    color: white;
+    background-color: #191919;
+}
+
+.search__limit--active {
+    color: #3498db;
+}
+
+.searchSection__articles {
+    display: flex;
+    justify-content: center;
+    border: 2px solid #3498db;
+    margin-top: -50px;
+    padding: 10px;
+    margin-bottom: 75px;
+}
+
+.footer {
+    background-color: #191919;
+    height: 50px;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-width: 4px 0px 0px 0px;
+    border-color: #2ecc71;
+    border-style: solid;
+}
+
+.footer--invalid {
+    border-width: 4px 0px 0px 0px;
+    border-color: red;
+    border-style: solid;
+}
+
+.footer--active {
+    border-width: 4px 0px 0px 0px;
+    border-color: #3498db;
+    border-style: dashed;
+}
+
+/*# sourceMappingURL=/design.28d92c21.css.map */
