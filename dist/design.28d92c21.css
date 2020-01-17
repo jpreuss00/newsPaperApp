@@ -1,6 +1,6 @@
 body {}
 
-header {
+.header {
     background-color: #191919;
     height: 50px;
     position: fixed;
@@ -33,7 +33,7 @@ h1 {
     color: ghostwhite;
 }
 
-main {
+.main {
     position: relative;
     top: 45px;
     width: 75%;
@@ -125,6 +125,10 @@ h2 {
     color: white;
 }
 
+.search__bar--invalid{
+    border: 2px solid red;
+}
+
 .search__button {
     text-align: center;
     border-width: 2px 2px 2px 0px;
@@ -140,11 +144,18 @@ h2 {
     color: #3498db;
 }
 
+.search__button--invalid {
+    color: red;
+    border-width: 2px 2px 2px 0px;
+    border-style: solid;
+    border-color: red;
+}
+
 .search__limit {
     border-width: 2px 0px 2px 2px;
     border-style: solid;
     border-color: #3498db;
-    width: 25px;
+    width: 35px;
     height: 50px;
     text-align: center;
     color: white;
@@ -155,13 +166,59 @@ h2 {
     color: #3498db;
 }
 
+.search__limit--invalid {
+    color: red;
+    border-width: 2px 0px 2px 2px;
+    border-style: solid;
+    border-color: red;
+}
+
 .searchSection__articles {
-    display: flex;
-    justify-content: center;
+    padding: 10px;
     border: 2px solid #3498db;
     margin-top: -50px;
-    padding: 10px;
     margin-bottom: 75px;
+}
+
+.searchSection__articles--invalid {
+    padding: 10px;
+    border: 2px solid red;
+    margin-top: -50px;
+    margin-bottom: 75px;
+}
+
+.searchSection__header {
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    font-style: oblique;
+    text-decoration: underline;
+}
+
+h3 {
+    text-align: center;
+}
+
+.searchSection__main {
+    width: 100%;
+    text-align: center;
+}
+
+.searchSection__main--invalid {
+    width: 100%;
+    text-align: center;
+    color: red;
+    font-size: 25px;
+    font-style: italic;
+}
+
+p {}
+
+.searchSection__footer {
+    width:100%;
+    text-align: center;
+    font-style: italic;
+    font-size: 90%;
 }
 
 .footer {

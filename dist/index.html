@@ -12,13 +12,13 @@
 <script src="/design.28d92c21.js"></script></head>
 
 <body>
-    <header>
+    <div class="header">
         <h1>newsPaperApp</h1>
-    </header>
-    <main>
+    </div>
+    <div class="main">
         <section class="loginSection">
             <fieldset class="login">
-                <h2>LOGIN</h2>
+                <h2>Enter your API access data</h2>
                 <br><br>
                 <input class="login__username" placeholder="Username" type="text">
                 <br><br>
@@ -29,23 +29,19 @@
         </section>
         <section class="searchSection">
             <article class="searchSection__search">
-                <input class="search__limit" type="text" value="5" maxlength="2">
+                <input class="search__limit" type="number" value="5" min="1" max="99">
                 <input class="search__bar" placeholder="Search for news..." type="text">
                 <button class="search__button">X</button>
             </article>
-            <article class="searchSection__articles">
-                <h5>TEST 1</h5>
-            </article>
-            <article class="searchSection__articles">
-                <h5>TEST 2</h5>
-            </article>
-            <article class="searchSection__articles">
-                <h5>TEST 3</h5>
+            <article class="searchSection__articles--invalid">
+                <div class="searchSection__main--invalid">
+                    Bad Request: Try again with some more logical Words.
+                </div>
             </article>
         </section>
-    </main>
-    <footer class="footer">
-    </footer>
+    </div>
+    <div class="footer">
+    </div>
 </body>
 
 </html>
