@@ -127,7 +127,35 @@ $(document).ready(function () {
   $(".searchSection__main--invalid").hide(); // register event handlers
 
   $(".login__confirmButton").click(handleLogin);
-  $(".search__button").click(handleSearch); // close articles
+  $(".search__button").click(handleSearch); // switch focus on input field and confirm username and password from any input field
+
+  $(".login__username").keydown(function (enteredKey) {
+    if (enteredKey.keyCode == 13) {
+      handleLogin();
+    }
+  });
+  $(".login__password").keydown(function (enterKey) {
+    if (enterKey.keyCode == 13) {
+      handleLogin();
+    }
+  });
+  $(".login__username").keydown(function (enteredKey) {
+    if (enteredKey.keyCode == 40) {
+      $('.login__password').focus();
+    }
+  });
+  $(".login__password").keydown(function (enteredKey) {
+    if (enteredKey.keyCode == 40) {
+      $('.login__confirmButton').focus();
+    } else if (enteredKey.keyCode == 38) {
+      $('.login__username').focus();
+    }
+  });
+  $(".login__confirmButton").keydown(function (enteredKey) {
+    if (enteredKey.keyCode == 38) {
+      $('.login__password').focus();
+    }
+  });
 });
 
 function handleLogin() {
