@@ -61,8 +61,8 @@ function handleSearch() {
 
     $.get({
         url: "https://sandbox-api.ipool.asideas.de/sandbox/api/search?q=" + encodeURI(searchWords) + "&limit=" + searchLimit,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+        beforeSend: function (apiCredentials) {
+            apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
         },
         success: function (data) {
             if (data.pagination.total != 0) {
@@ -70,22 +70,10 @@ function handleSearch() {
                     searchLimit = 99
                 }
                 for (i = 0; i < searchLimit; i++) {
-                    $("<article>" + "<header>" + "<H3>" + data.documents[i].title + "</H3>" + "</header>" + "<main>" + data.documents[i].content + "</main>" + "<footer>" + "<a href =" + data.documents[i].url + ">Go to the Website to read the full article" + "</a>" + "</footer>" + "</article>").appendTo(".searchSection").attr({
-                        class: "searchSection__articles",
-                    }),
-                    $("header").attr({
-                        class: "searchSection__header",
-                        onclick: '$(this).closest(".searchSection__articles").fadeOut()'
-                    })
-                    $("main").attr({
-                        class: "searchSection__main",
-                    })
-                    $("footer").attr({
-                        class: "searchSection__footer"
-                    })
-                    $("a").attr({
-                        target: "_blank"
-                    })
+                    $("<article class='searchSection__articles'>" + "<header class='searchSection__header'>" + "<h3>" + data.documents[i].title + "</h3>" + "<h4>" + data.documents[i].dateCreated + "</h4>" + "</header>" + "<main class ='searchSection__main'>" + data.documents[i].content + "</main>" + "<footer class='searchSection__footer'>" + "<a target='_blank' href =" + data.documents[i].url + ">Go to the Website to read the full article" + "</a>" + "</footer>" + "</article>").appendTo(".searchSection"),
+                        $("header").attr({
+                            onclick: '$(this).closest(".searchSection__articles").fadeOut()'
+                        })
                 }
                 searchIndicator();
             } else {

@@ -125,7 +125,7 @@ h2 {
     color: white;
 }
 
-.search__bar--invalid{
+.search__bar--invalid {
     border: 2px solid red;
 }
 
@@ -181,7 +181,7 @@ h2 {
 }
 
 .searchSection__articles:hover {
-    background-color: rgba(243, 245, 241, 0.7);
+    background-color: rgba(188, 194, 180, 0.7);
 }
 
 .searchSection__articles--invalid {
@@ -199,13 +199,20 @@ h2 {
     text-decoration: underline;
 }
 
-.searchSection__header:hover{
+.searchSection__header:hover {
     border: 2px solid red;
     color: red;
 }
 
 h3 {
     text-align: center;
+}
+
+h4{
+    font-size: 15px;
+    font-style: normal;
+    color: rgb(92, 89, 89);
+    text-decoration: none; 
 }
 
 .searchSection__main {
@@ -224,7 +231,7 @@ h3 {
 p {}
 
 .searchSection__footer {
-    width:100%;
+    width: 100%;
     text-align: center;
     font-style: italic;
     font-size: 90%;
