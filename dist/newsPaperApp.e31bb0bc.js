@@ -127,7 +127,7 @@ $(document).ready(function () {
   $(".searchSection__main--invalid").hide(); // register event handlers
 
   $(".login__confirmButton").click(handleLogin);
-  $(".search__button").click(handleSearch);
+  $(".search__button").click(handleSearch); // close articles
 });
 
 function handleLogin() {
@@ -186,15 +186,18 @@ function handleSearch() {
         for (i = 0; i < searchLimit; i++) {
           $("<article>" + "<header>" + "<H3>" + data.documents[i].title + "</H3>" + "</header>" + "<main>" + data.documents[i].content + "</main>" + "<footer>" + "<a href =" + data.documents[i].url + ">Go to the Website to read the full article" + "</a>" + "</footer>" + "</article>").appendTo(".searchSection").attr({
             class: "searchSection__articles"
-          });
-          $("header").attr({
-            class: "searchSection__header"
+          }), $("header").attr({
+            class: "searchSection__header",
+            onclick: '$(this).closest(".searchSection__articles").fadeOut()'
           });
           $("main").attr({
             class: "searchSection__main"
           });
           $("footer").attr({
             class: "searchSection__footer"
+          });
+          $("a").attr({
+            target: "_blank"
           });
         }
 

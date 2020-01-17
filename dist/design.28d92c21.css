@@ -180,6 +180,10 @@ h2 {
     margin-bottom: 75px;
 }
 
+.searchSection__articles:hover {
+    background-color: rgba(243, 245, 241, 0.7);
+}
+
 .searchSection__articles--invalid {
     padding: 10px;
     border: 2px solid red;
@@ -193,6 +197,11 @@ h2 {
     font-size: 25px;
     font-style: oblique;
     text-decoration: underline;
+}
+
+.searchSection__header:hover{
+    border: 2px solid red;
+    color: red;
 }
 
 h3 {
