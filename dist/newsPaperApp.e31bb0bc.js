@@ -129,8 +129,8 @@ $(document).ready(function () {
   $(".login__confirmButton").click(handleLogin);
   $(".search__button").click(handleSearch); // switch focus on input field and confirm username and password from any input field
 
-  $(".login__username").keydown(function (enteredKey) {
-    if (enteredKey.keyCode == 13) {
+  $(".login__username").keydown(function (enterKey) {
+    if (enterKey.keyCode == 13) {
       handleLogin();
     }
   });
@@ -186,54 +186,45 @@ function handleLogin() {
         $(".login__password").val('');
       }
     },
-    beforeSend: function beforeSend(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+    beforeSend: function beforeSend(apiCredentials) {
+      apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
     }
   });
 }
 
-function handleSearch() {
+function newArticleTemplate(element) {
+  return "<article class='searchSection__articles'><header class='searchSection__header'><h3>".concat(element.title, "</h3><h4>").concat(element.dateCreated, "</h4></header><main class ='searchSection__main'>").concat(element.content, "</main><footer class='searchSection__footer'><a target='_blank' href='").concat(element.url, "'>Go to the Website to read the full article</a></footer></article>");
+}
+
+function appendArticlesToList(data) {
   var searchLimit = $('.search__limit').val();
+
+  if (data.pagination.total != 0 && searchLimit > 0) {
+    if (searchLimit > 99) {
+      searchLimit = 99;
+    }
+
+    for (i = 0; i < searchLimit; i++) {
+      var element = data.documents[i];
+      var template = newArticleTemplate(element);
+      $(template).appendTo(".searchSection"), $("header").attr({
+        onclick: '$(this).closest(".searchSection__articles").remove()'
+      });
+    }
+
+    searchIndicator();
+  } else {
+    errorMessage();
+  }
+}
+
+function handleSearch() {
   var searchWords = $('.search__bar').val();
-  var username = $('.login__username').val();
-  var password = $('.login__password').val();
   $(".searchSection__articles").remove();
   $(".searchSection__articles--invalid").hide();
   $(".searchSection__main--invalid").hide();
-  $.get({
-    url: "https://sandbox-api.ipool.asideas.de/sandbox/api/search?q=" + encodeURI(searchWords) + "&limit=" + searchLimit,
-    beforeSend: function beforeSend(apiCredentials) {
-      apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
-    },
-    success: function success(data) {
-      if (data.pagination.total != 0) {
-        if (searchLimit > 99) {
-          searchLimit = 99;
-        }
-
-        for (i = 0; i < searchLimit; i++) {
-          $("<article class='searchSection__articles'>" + "<header class='searchSection__header'>" + "<h3>" + data.documents[i].title + "</h3>" + "<h4>" + data.documents[i].dateCreated + "</h4>" + "</header>" + "<main class ='searchSection__main'>" + data.documents[i].content + "</main>" + "<footer class='searchSection__footer'>" + "<a target='_blank' href =" + data.documents[i].url + ">Go to the Website to read the full article" + "</a>" + "</footer>" + "</article>").appendTo(".searchSection"), $("header").attr({
-            onclick: '$(this).closest(".searchSection__articles").fadeOut()'
-          });
-        }
-
-        searchIndicator();
-      } else {
-        errorMessage();
-      }
-    },
-    statusCode: {
-      400: function _() {
-        errorMessage();
-      },
-      401: function _() {
-        errorMessage();
-      },
-      500: function _() {
-        errorMessage();
-      }
-    }
-  });
+  searchArticles(searchWords, appendArticlesToList);
+  setTimeout(checkArticleAmount, 500);
 }
 
 function errorMessage() {
@@ -267,6 +258,54 @@ function searchIndicator() {
     $(".search__bar").val('');
   }, 1000);
 }
+
+function checkArticleAmount() {
+  var limit = $('.search__limit').val();
+
+  if ($('.searchSection__articles').length < limit) {
+    var searchWords = $('.search__bar').val();
+    searchArticles(searchWords, appendNewArticle);
+  }
+
+  setTimeout(checkArticleAmount, 1000);
+}
+
+var deletedArticles = 1;
+
+function appendNewArticle(data) {
+  var newArticleAmountCounter = Number($('.search__limit').val()) + deletedArticles;
+  var element = data.documents[newArticleAmountCounter];
+  var template = newArticleTemplate(element);
+  $(template).appendTo(".searchSection"), $("header").attr({
+    onclick: '$(this).closest(".searchSection__articles").remove()'
+  });
+  deletedArticles++;
+}
+
+function searchArticles(searchWords, callback) {
+  var username = $('.login__username').val();
+  var password = $('.login__password').val();
+  data = $.get({
+    url: "https://sandbox-api.ipool.asideas.de/sandbox/api/search?q=" + encodeURI(searchWords) + "&limit=100",
+    beforeSend: function beforeSend(apiCredentials) {
+      apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+    },
+    success: function success(data) {
+      callback(data);
+    },
+    statusCode: {
+      400: function _() {
+        errorMessage();
+      },
+      401: function _() {
+        errorMessage();
+      },
+      500: function _() {
+        errorMessage();
+      }
+    }
+  });
+}
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -295,7 +334,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50009" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50437" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

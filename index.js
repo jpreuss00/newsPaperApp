@@ -12,31 +12,32 @@ $(document).ready(function () {
     $(".search__button").click(handleSearch);
 
     // switch focus on input field and confirm username and password from any input field
-
-    $(".login__username").keydown(function(enteredKey){
-        if(enteredKey.keyCode == 13){
+    $(".login__username").keydown(function (enterKey) {
+        if (enterKey.keyCode == 13) {
             handleLogin();
         }
     })
-    $(".login__password").keydown(function(enterKey){
-        if(enterKey.keyCode == 13){
+    $(".login__password").keydown(function (enterKey) {
+        if (enterKey.keyCode == 13) {
             handleLogin();
         }
     })
-    $(".login__username").keydown(function(enteredKey){
-        if(enteredKey.keyCode == 40){
-            $('.login__password').focus()}
+    $(".login__username").keydown(function (enteredKey) {
+        if (enteredKey.keyCode == 40) {
+            $('.login__password').focus()
+        }
     })
-    $(".login__password").keydown(function(enteredKey){
-        if(enteredKey.keyCode == 40){
+    $(".login__password").keydown(function (enteredKey) {
+        if (enteredKey.keyCode == 40) {
             $('.login__confirmButton').focus()
-        } else if (enteredKey.keyCode == 38){
+        } else if (enteredKey.keyCode == 38) {
             $('.login__username').focus()
         }
     })
-    $(".login__confirmButton").keydown(function(enteredKey){
-        if(enteredKey.keyCode == 38){
-            $('.login__password').focus()}
+    $(".login__confirmButton").keydown(function (enteredKey) {
+        if (enteredKey.keyCode == 38) {
+            $('.login__password').focus()
+        }
     })
 
 });
@@ -69,55 +70,50 @@ function handleLogin() {
                 $(".login__password").val('');
             }
         },
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+        beforeSend: function (apiCredentials) {
+            apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
         }
     });
 }
 
-function handleSearch() {
+function newArticleTemplate(element) {
+    return `<article class='searchSection__articles'><header class='searchSection__header'><h3>${element.title}</h3><h4>${element.dateCreated}</h4></header><main class ='searchSection__main'>${element.content}</main><footer class='searchSection__footer'><a target='_blank' href='${element.url}'>Go to the Website to read the full article</a></footer></article>`;
+}
+
+function appendArticlesToList(data) {
+
     var searchLimit = $('.search__limit').val();
+
+    if (data.pagination.total != 0 && searchLimit > 0) {
+        if (searchLimit > 99) {
+            searchLimit = 99
+        }
+        for (i = 0; i < searchLimit; i++) {
+            let element = data.documents[i];
+            let template = newArticleTemplate(element);
+
+            $(template).appendTo(".searchSection"),
+                $("header").attr({
+                    onclick: '$(this).closest(".searchSection__articles").remove()'
+                })
+        }
+        searchIndicator();
+    } else {
+        errorMessage();
+    }
+}
+
+function handleSearch() {
+
     const searchWords = $('.search__bar').val();
-    const username = $('.login__username').val();
-    const password = $('.login__password').val();
 
     $(".searchSection__articles").remove();
     $(".searchSection__articles--invalid").hide();
     $(".searchSection__main--invalid").hide();
 
-    $.get({
-        url: "https://sandbox-api.ipool.asideas.de/sandbox/api/search?q=" + encodeURI(searchWords) + "&limit=" + searchLimit,
-        beforeSend: function (apiCredentials) {
-            apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
-        },
-        success: function (data) {
-            if (data.pagination.total != 0) {
-                if (searchLimit > 99) {
-                    searchLimit = 99
-                }
-                for (i = 0; i < searchLimit; i++) {
-                    $("<article class='searchSection__articles'>" + "<header class='searchSection__header'>" + "<h3>" + data.documents[i].title + "</h3>" + "<h4>" + data.documents[i].dateCreated + "</h4>" + "</header>" + "<main class ='searchSection__main'>" + data.documents[i].content + "</main>" + "<footer class='searchSection__footer'>" + "<a target='_blank' href =" + data.documents[i].url + ">Go to the Website to read the full article" + "</a>" + "</footer>" + "</article>").appendTo(".searchSection"),
-                        $("header").attr({
-                            onclick: '$(this).closest(".searchSection__articles").fadeOut()'
-                        })
-                }
-                searchIndicator();
-            } else {
-                errorMessage();
-            }
-        },
-        statusCode: {
-            400: function () {
-                errorMessage();
-            },
-            401: function () {
-                errorMessage();
-            },
-            500: function () {
-                errorMessage();
-            }
-        }
-    });
+    searchArticles(searchWords, appendArticlesToList);
+
+    setTimeout(checkArticleAmount, 500);
 }
 
 function errorMessage() {
@@ -151,4 +147,51 @@ function searchIndicator() {
         $(".footer").removeClass('footer--active');
         $(".search__bar").val('');
     }, 1000);
+}
+
+function checkArticleAmount() {
+    const limit = $('.search__limit').val();
+    if ($('.searchSection__articles').length < limit) {
+        const searchWords = $('.search__bar').val();
+        searchArticles(searchWords, appendNewArticle);
+    }
+    setTimeout(checkArticleAmount, 1000);
+}
+
+var deletedArticles = 1;
+
+function appendNewArticle(data) {
+    var newArticleAmountCounter = Number($('.search__limit').val()) + deletedArticles;
+    let element = data.documents[newArticleAmountCounter];
+    let template = newArticleTemplate(element);
+    $(template).appendTo(".searchSection"),
+        $("header").attr({
+            onclick: '$(this).closest(".searchSection__articles").remove()'
+        })
+    deletedArticles++;
+}
+
+function searchArticles(searchWords, callback) {
+    const username = $('.login__username').val();
+    const password = $('.login__password').val();
+    data = $.get({
+        url: "https://sandbox-api.ipool.asideas.de/sandbox/api/search?q=" + encodeURI(searchWords) + "&limit=100",
+        beforeSend: function (apiCredentials) {
+            apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+        },
+        success: function (data) {
+            callback(data);
+        },
+        statusCode: {
+            400: function () {
+                errorMessage();
+            },
+            401: function () {
+                errorMessage();
+            },
+            500: function () {
+                errorMessage();
+            }
+        }
+    });
 }
