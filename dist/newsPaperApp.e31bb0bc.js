@@ -283,6 +283,8 @@ function appendNewArticle(data) {
 }
 
 function searchArticles(searchWords, callback) {
+  $(".searchSection__articles--invalid").hide();
+  $(".searchSection__main--invalid").hide();
   var username = $('.login__username').val();
   var password = $('.login__password').val();
   data = $.get({
@@ -334,7 +336,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50437" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58266" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

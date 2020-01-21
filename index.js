@@ -172,6 +172,8 @@ function appendNewArticle(data) {
 }
 
 function searchArticles(searchWords, callback) {
+    $(".searchSection__articles--invalid").hide();
+    $(".searchSection__main--invalid").hide();
     const username = $('.login__username').val();
     const password = $('.login__password').val();
     data = $.get({
