@@ -48,7 +48,7 @@ function handleLogin() {
     $.get({
         url: "https://sandbox-api.ipool.asideas.de/sandbox/api/search?q=test",
         success: function () {
-            $(".login").removeClass("login--invalid");
+            $(".login").removeClass('login--invalid');
             $(".login__username").removeClass('login__username--invalid');
             $(".login__password").removeClass('login__password--invalid');
             $(".login__confirmButton").removeClass('login__confirmButton--invalid');
