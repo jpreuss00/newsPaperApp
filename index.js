@@ -46,7 +46,7 @@ function handleLogin() {
     const username = $('.login__username').val();
     const password = $('.login__password').val();
     $.get({
-        url: "https://sandbox-api.ipool.asideas.de/sandbox/api/search?q=test",
+        url: "http://thawing-ridge-63424.herokuapp.com/",
         success: function () {
             $(".login").removeClass('login--invalid');
             $(".login__username").removeClass('login__username--invalid');
