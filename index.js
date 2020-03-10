@@ -113,7 +113,7 @@ function handleSearch() {
 
     searchArticles(searchWords, appendArticlesToList);
 
-    setTimeout(checkArticleAmount, 500);
+    //setTimeout(checkArticleAmount, 500);
 }
 
 function errorMessage() {
@@ -149,6 +149,7 @@ function searchIndicator() {
     }, 1000);
 }
 
+
 function checkArticleAmount() {
     const limit = $('.search__limit').val();
     if ($('.searchSection__articles').length < limit) {
@@ -157,6 +158,7 @@ function checkArticleAmount() {
     }
     setTimeout(checkArticleAmount, 1000);
 }
+
 
 var deletedArticles = 1;
 
