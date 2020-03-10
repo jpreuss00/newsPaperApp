@@ -72,6 +72,9 @@ function handleLogin() {
         },
         beforeSend: function (apiCredentials) {
             apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+            apiCredentials.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+
         }
     });
 }
