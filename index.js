@@ -177,7 +177,7 @@ function searchArticles(searchWords, callback) {
     const username = $('.login__username').val();
     const password = $('.login__password').val();
     data = $.get({
-        url: "https://sandbox-api.ipool.asideas.de/sandbox/api/search?q=" + encodeURI(searchWords) + "&limit=100",
+        url: "https://thawing-ridge-63424.herokuapp.com/api/search?term=" + encodeURI(searchWords),
         beforeSend: function (apiCredentials) {
             apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
         },
