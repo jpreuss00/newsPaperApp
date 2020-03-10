@@ -70,7 +70,7 @@ function handleLogin() {
                 $(".login__password").val('');
             }
         },
-        beforeSend: function (apiCredentials) {
+        function (apiCredentials) {
             apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
         }
     });
