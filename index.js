@@ -46,7 +46,7 @@ function handleLogin() {
     const username = $('.login__username').val();
     const password = $('.login__password').val();
     $.get({
-        url: "https://thawing-ridge-63424.herokuapp.com/api/search?term=a",
+        url: "https://thawing-ridge-63424.herokuapp.com",
         success: function () {
             $(".login").removeClass('login--invalid');
             $(".login__username").removeClass('login__username--invalid');
@@ -72,9 +72,6 @@ function handleLogin() {
         },
         beforeSend: function (apiCredentials) {
             apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
-            apiCredentials.setRequestHeader("Access-Control-Allow-Origin", "*");
-
-
         }
     });
 }
