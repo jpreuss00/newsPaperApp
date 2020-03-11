@@ -106,12 +106,14 @@ function appendArticlesToList(data) {
 function handleSearch() {
 
     const searchWords = $('.search__bar').val();
+    const limit = $('.search__limit').val();
+    const category = "";
 
     $(".searchSection__articles").remove();
     $(".searchSection__articles--invalid").hide();
     $(".searchSection__main--invalid").hide();
 
-    searchArticles(searchWords, appendArticlesToList);
+    searchArticles(searchWords, category, limit, appendArticlesToList);
 
     //setTimeout(checkArticleAmount, 500);
 }
@@ -173,13 +175,13 @@ function appendNewArticle(data) {
     deletedArticles++;
 }
 
-function searchArticles(searchWords, callback) {
+function searchArticles(searchWords, category, limit, callback) {
     $(".searchSection__articles--invalid").hide();
     $(".searchSection__main--invalid").hide();
     const username = $('.login__username').val();
     const password = $('.login__password').val();
     data = $.get({
-        url: "https://thawing-ridge-63424.herokuapp.com/api/search?term=" + encodeURI(searchWords),
+        url: "https://thawing-ridge-63424.herokuapp.com/api/search?term=" + encodeURI(searchWords) + "&category=" + category + "&limit=" + limit,
         beforeSend: function (apiCredentials) {
             apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
         },
