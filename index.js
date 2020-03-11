@@ -77,7 +77,7 @@ function handleLogin() {
 }
 
 function newArticleTemplate(element) {
-    return `<article class='searchSection__articles'><header class='searchSection__header'><h3>${element.title}</h3><h4>${element.dateCreated}</h4></header><main class ='searchSection__main'>${element.content}</main><footer class='searchSection__footer'><a target='_blank' href='${element.url}'>Go to the Website to read the full article</a></footer></article>`;
+    return `<article class='searchSection__articles'><header class='searchSection__header'><h3>${element.title}</h3><h4>${element.pubDate}</h4></header><main class ='searchSection__main'>${element.description}</main><footer class='searchSection__footer'><a target='_blank' href='https://github.com/jpreuss00/Crawler'>Check out the Project!</a></footer></article>`;
 }
 
 function appendArticlesToList(data) {
