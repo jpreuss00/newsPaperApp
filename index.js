@@ -47,17 +47,6 @@ function handleLogin() {
     const password = $('.login__password').val();
     $.get({
         url: "https://thawing-ridge-63424.herokuapp.com/api/search",
-        success: function () {
-            $(".login").removeClass('login--invalid');
-            $(".login__username").removeClass('login__username--invalid');
-            $(".login__password").removeClass('login__password--invalid');
-            $(".login__confirmButton").removeClass('login__confirmButton--invalid');
-            $(".header").removeClass('header--invalid');
-            $(".footer").removeClass('footer--invalid');
-            $(".login").fadeOut(function () {
-                $(".searchSection").show();
-            });
-        },
         statusCode: {
             401: function () {
                 $(".login").addClass('login--invalid');
@@ -68,7 +57,18 @@ function handleLogin() {
                 $(".login__confirmButton").addClass('login__confirmButton--invalid');
                 $(".login__username").val('');
                 $(".login__password").val('');
-            }
+            },
+            200: function () {
+                             $(".login").removeClass('login--invalid');
+                             $(".login__username").removeClass('login__username--invalid');
+                             $(".login__password").removeClass('login__password--invalid');
+                             $(".login__confirmButton").removeClass('login__confirmButton--invalid');
+                             $(".header").removeClass('header--invalid');
+                             $(".footer").removeClass('footer--invalid');
+                             $(".login").fadeOut(function () {
+                                 $(".searchSection").show();
+                             });
+                         }
         },
         beforeSend: function (apiCredentials) {
             apiCredentials.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
